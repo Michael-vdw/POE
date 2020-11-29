@@ -41,6 +41,7 @@ namespace HeroesandGoblins
             {
                 WeaponType = "Dagger";
                 Durability = 10;
+                Range = 1;
                 Damage = 3;
                 Cost = 3;
             }
@@ -48,6 +49,7 @@ namespace HeroesandGoblins
             {
                 WeaponType = "Longsword";
                 Durability = 6;
+                Range = 1;
                 Damage = 4;
                 Cost = 5;
             }

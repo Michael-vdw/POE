@@ -129,53 +129,53 @@ namespace HeroesandGoblins
 
                     }
                     else for (int a = 0; a > 20; a++)
-                        {
+                    {
                             int movenum = randomMove.Next(1, 5);
-                            if (movenum == 1)
+                        if (movenum == 1)
+                        {
+                            if (engineMap.Enemies[i].Vision[0].thisTile == Tile.TileType.Empty)
                             {
-                                if (engineMap.Enemies[i].Vision[0].thisTile == Tile.TileType.Empty)
-                                {
-                                    engineMap.Enemies[i].Move(Character.Movement.Up);
-                                    engineMap.TileMap[engineMap.Enemies[i].X, engineMap.Enemies[i].Y] = engineMap.Enemies[i];
-                                    engineMap.TileMap[engineMap.Enemies[i].X, engineMap.Enemies[i].Y + 1] = new EmptyTile(engineMap.Enemies[i].X, engineMap.Enemies[i].Y + 1);
-                                    engineMap.UpdateVision();
-                                    break;
-                                }
-                            }
-                            if (movenum == 2)
-                            {
-                                if (engineMap.Enemies[i].Vision[1].thisTile == Tile.TileType.Empty)
-                                {
-                                    engineMap.Enemies[i].Move(Character.Movement.Down);
-                                    engineMap.TileMap[engineMap.Enemies[i].X, engineMap.Enemies[i].Y] = engineMap.Enemies[i];
-                                    engineMap.TileMap[engineMap.Enemies[i].X, engineMap.Enemies[i].Y - 1] = new EmptyTile(engineMap.Enemies[i].X, engineMap.Enemies[i].Y - 1);
-                                    engineMap.UpdateVision();
-                                    break;
-                                }
-                            }
-                            if (movenum == 3)
-                            {
-                                if (engineMap.Enemies[i].Vision[2].thisTile == Tile.TileType.Empty)
-                                {
-                                    engineMap.Enemies[i].Move(Character.Movement.Left);
-                                    engineMap.TileMap[engineMap.Enemies[i].X, engineMap.Enemies[i].Y] = engineMap.Enemies[i];
-                                    engineMap.TileMap[engineMap.Enemies[i].X + 1, engineMap.Enemies[i].Y] = new EmptyTile(engineMap.Enemies[i].X + 1, engineMap.Enemies[i].Y);
-                                    engineMap.UpdateVision();
-                                    break;
-                                }
-                            }
-                            if (movenum == 4)
-                            {
-                                if (engineMap.Enemies[i].Vision[3].thisTile == Tile.TileType.Empty)
-                                {
-                                    engineMap.Enemies[i].Move(Character.Movement.Right);
-                                    engineMap.TileMap[engineMap.Enemies[i].X, engineMap.Enemies[i].Y] = engineMap.Enemies[i];
-                                    engineMap.TileMap[engineMap.Enemies[i].X - 1, engineMap.Enemies[i].Y] = new EmptyTile(engineMap.Enemies[i].X - 1, engineMap.Enemies[i].Y);
-                                    engineMap.UpdateVision();
-                                    break;
-                                }
+                                engineMap.Enemies[i].Move(Character.Movement.Up);
+                                engineMap.TileMap[engineMap.Enemies[i].X, engineMap.Enemies[i].Y] = engineMap.Enemies[i];
+                                engineMap.TileMap[engineMap.Enemies[i].X, engineMap.Enemies[i].Y + 1] = new EmptyTile(engineMap.Enemies[i].X, engineMap.Enemies[i].Y + 1);
+                                engineMap.UpdateVision();
+                                break;
                             }
                         }
+                        if (movenum == 2)
+                        {
+                            if (engineMap.Enemies[i].Vision[1].thisTile == Tile.TileType.Empty)
+                            {
+                                engineMap.Enemies[i].Move(Character.Movement.Down);
+                                engineMap.TileMap[engineMap.Enemies[i].X, engineMap.Enemies[i].Y] = engineMap.Enemies[i];
+                                engineMap.TileMap[engineMap.Enemies[i].X, engineMap.Enemies[i].Y - 1] = new EmptyTile(engineMap.Enemies[i].X, engineMap.Enemies[i].Y - 1);
+                                engineMap.UpdateVision();
+                                break;
+                            }
+                        }
+                        if (movenum == 3)
+                        {
+                            if (engineMap.Enemies[i].Vision[2].thisTile == Tile.TileType.Empty)
+                            {
+                                engineMap.Enemies[i].Move(Character.Movement.Left);
+                                engineMap.TileMap[engineMap.Enemies[i].X, engineMap.Enemies[i].Y] = engineMap.Enemies[i];
+                                engineMap.TileMap[engineMap.Enemies[i].X + 1, engineMap.Enemies[i].Y] = new EmptyTile(engineMap.Enemies[i].X + 1, engineMap.Enemies[i].Y);
+                                engineMap.UpdateVision();
+                                break;
+                            }
+                        }
+                        if (movenum == 4)
+                        {
+                            if (engineMap.Enemies[i].Vision[3].thisTile == Tile.TileType.Empty)
+                            {
+                                engineMap.Enemies[i].Move(Character.Movement.Right);
+                                engineMap.TileMap[engineMap.Enemies[i].X, engineMap.Enemies[i].Y] = engineMap.Enemies[i];
+                                engineMap.TileMap[engineMap.Enemies[i].X - 1, engineMap.Enemies[i].Y] = new EmptyTile(engineMap.Enemies[i].X - 1, engineMap.Enemies[i].Y);
+                                engineMap.UpdateVision();
+                                break;
+                            }
+                        }
+                    }
                 }
                 if (engineMap.Enemies[i].thisTile == Tile.TileType.Goblin)
                 {
@@ -254,6 +254,21 @@ namespace HeroesandGoblins
                     EngineMap.UpdateVision();
                     return true;
                 }
+                if (player.Vision[1].thisTile == Tile.TileType.Weapon)
+                {
+                    for (int i = 0; i < engineMap.Items.Length; i++)
+                    {
+                        if (engineMap.Items[i].X == player.X && EngineMap.Items[i].Y - 1 == player.Y)
+                        {
+                            player.Pickup(engineMap.Items[i]);
+                        }
+                    }
+                    player.Move(Character.Movement.Down);
+                    EngineMap.TileMap[player.X, player.Y] = player;
+                    EngineMap.TileMap[player.X, player.Y - 1] = new EmptyTile(player.X, player.Y - 1);
+                    EngineMap.UpdateVision();
+                    return true;
+                }
                 else
                 {
                     //MessageBox.Show("Path Blocked","Cannot move here");
@@ -271,6 +286,21 @@ namespace HeroesandGoblins
                     return true;
                 }
                 if (player.Vision[3].thisTile == Tile.TileType.Gold)
+                {
+                    for (int i = 0; i < engineMap.Items.Length; i++)
+                    {
+                        if (engineMap.Items[i].X - 1 == player.X && EngineMap.Items[i].Y == player.Y)
+                        {
+                            player.Pickup(engineMap.Items[i]);
+                        }
+                    }
+                    player.Move(Character.Movement.Right);
+                    EngineMap.TileMap[player.X, player.Y] = player;
+                    EngineMap.TileMap[player.X - 1, player.Y] = new EmptyTile(player.X - 1, player.Y);
+                    EngineMap.UpdateVision();
+                    return true;
+                }
+                if (player.Vision[3].thisTile == Tile.TileType.Weapon)
                 {
                     for (int i = 0; i < engineMap.Items.Length; i++)
                     {
@@ -316,6 +346,21 @@ namespace HeroesandGoblins
                     EngineMap.UpdateVision();
                     return true;
                 }
+                if (player.Vision[2].thisTile == Tile.TileType.Weapon)
+                {
+                    for (int i = 0; i < engineMap.Items.Length; i++)
+                    {
+                        if (engineMap.Items[i].X + 1 == player.X && EngineMap.Items[i].Y == player.Y)
+                        {
+                            player.Pickup(engineMap.Items[i]);
+                        }
+                    }
+                    player.Move(Character.Movement.Left);
+                    EngineMap.TileMap[player.X, player.Y] = player;
+                    EngineMap.TileMap[player.X + 1, player.Y] = new EmptyTile(player.X + 1, player.Y);
+                    EngineMap.UpdateVision();
+                    return true;
+                }
                 else
                 {
                     //MessageBox.Show("Path Blocked", "Cannot move here");
@@ -333,6 +378,21 @@ namespace HeroesandGoblins
                     return true;
                 }
                 if (player.Vision[0].thisTile == Tile.TileType.Gold)
+                {
+                    for (int i = 0; i < engineMap.Items.Length; i++)
+                    {
+                        if (engineMap.Items[i].X == player.X && EngineMap.Items[i].Y + 1 == player.Y)
+                        {
+                            player.Pickup(engineMap.Items[i]);
+                        }
+                    }
+                    player.Move(Character.Movement.Up);
+                    EngineMap.TileMap[player.X, player.Y] = player;
+                    EngineMap.TileMap[player.X, player.Y + 1] = new EmptyTile(player.X, player.Y + 1);
+                    EngineMap.UpdateVision();
+                    return true;
+                }
+                if (player.Vision[0].thisTile == Tile.TileType.Weapon)
                 {
                     for (int i = 0; i < engineMap.Items.Length; i++)
                     {

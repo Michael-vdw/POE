@@ -54,7 +54,7 @@ namespace HeroesandGoblins
 
         public virtual bool CheckRange(Character target)
         {
-            if (DistanceTo(target) < 2)
+            if (DistanceTo(target) < EquippedWeapon.Range)
             {
                 return true;
             }
@@ -138,7 +138,7 @@ namespace HeroesandGoblins
 
         public override string ToString()
         {
-            return "Player stats: \nHP:" + hp + "/" + maxHP + "\nDamage:" + damage + "\nCoordinates:" + "[" + x + "," + y + "]" + "\nGold:" + gold + "\nCurrent Weapon:" + EquippedWeapon + "\nWeapon Range:" + EquippedWeapon.Range + "\nWeapon Damage:" + EquippedWeapon.Damage + "\nWeapon Durability:" + EquippedWeapon.Durability;
+            return "Player stats: \nHP:" + hp + "/" + maxHP + "\nDamage:" + damage + "\nCoordinates:" + "[" + x + "," + y + "]" + "\nGold:" + gold + "\nCurrent Weapon:" + EquippedWeapon.WeaponType + "\nWeapon Range:" + EquippedWeapon.Range + "\nWeapon Damage:" + EquippedWeapon.Damage + "\nWeapon Durability:" + EquippedWeapon.Durability;
         }
     }
 }
