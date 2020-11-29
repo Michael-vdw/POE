@@ -18,7 +18,7 @@ namespace HeroesandGoblins
         }
         public override string ToString()
         {
-            return EquippedWeapon.WeaponType + ":" + nameof(Enemy) + damage + "(" + HP + "/" + MaxHP + ")" + " at [" + X + "," + Y + "] " + "with" + EquippedWeapon.WeaponType + "(Durability:" +EquippedWeapon.Durability+",DMG"+ EquippedWeapon.Damage + ")";
+            return EquippedWeapon.WeaponType + ":" + nameof(Enemy) + "(" + HP + "/" + MaxHP + ")" + " at [" + X + "," + Y + "] " + "with" + EquippedWeapon.WeaponType + "(Durability:" +EquippedWeapon.Durability+",DMG"+ EquippedWeapon.Damage + ")";
         }
     }
     [Serializable]

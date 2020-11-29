@@ -39,6 +39,7 @@
             this.rtbAttack = new System.Windows.Forms.RichTextBox();
             this.btnLoad = new System.Windows.Forms.Button();
             this.Save = new System.Windows.Forms.Button();
+            this.lblEnemies = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnUp
@@ -147,11 +148,21 @@
             this.Save.UseVisualStyleBackColor = true;
             this.Save.Click += new System.EventHandler(this.Save_Click);
             // 
+            // lblEnemies
+            // 
+            this.lblEnemies.AutoSize = true;
+            this.lblEnemies.Location = new System.Drawing.Point(12, 336);
+            this.lblEnemies.Name = "lblEnemies";
+            this.lblEnemies.Size = new System.Drawing.Size(35, 13);
+            this.lblEnemies.TabIndex = 11;
+            this.lblEnemies.Text = "label1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lblEnemies);
             this.Controls.Add(this.Save);
             this.Controls.Add(this.btnLoad);
             this.Controls.Add(this.rtbAttack);
@@ -183,6 +194,7 @@
         private System.Windows.Forms.RichTextBox rtbAttack;
         private System.Windows.Forms.Button btnLoad;
         private System.Windows.Forms.Button Save;
+        private System.Windows.Forms.Label lblEnemies;
     }
 }
 

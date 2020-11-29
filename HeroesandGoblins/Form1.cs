@@ -279,14 +279,106 @@ namespace HeroesandGoblins
                             }
                         }
                     }
+                    if (engineMap.Enemies[i].thisTile == Tile.TileType.Leader)
+                    {
+                        for (int ivision = 0; ivision < 4; ivision++)
+                        {
+                            if (engineMap.Enemies[i].Vision[ivision].thisTile == Tile.TileType.Hero)
+                            {
+                                engineMap.Enemies[i].Attack(player);
+                            }
+                        }
+                    }
                 }
             }
 
             public void MoveEnemies()
             {
                 Random randomMove = new Random();
-                for (int i = 0; i < engineMap.Enemies.Length;)
+                for (int i = 0; i < engineMap.Enemies.Length;i++)
                 {
+                    if (engineMap.Enemies[i].thisTile == Tile.TileType.Leader)
+                    {
+                        if (Player.Y < engineMap.Enemies[i].Y && engineMap.Enemies[i].Vision[0].thisTile == Tile.TileType.Empty)
+                        {
+                            engineMap.Enemies[i].Move(Character.Movement.Up);
+                            engineMap.TileMap[engineMap.Enemies[i].X, engineMap.Enemies[i].Y] = engineMap.Enemies[i];
+                            engineMap.TileMap[engineMap.Enemies[i].X, engineMap.Enemies[i].Y + 1] = new EmptyTile(engineMap.Enemies[i].X, engineMap.Enemies[i].Y + 1);
+                            engineMap.UpdateVision();
+                        }
+                        else if (Player.Y > engineMap.Enemies[i].Y && engineMap.Enemies[i].Vision[1].thisTile == Tile.TileType.Empty)
+                        {
+                            engineMap.Enemies[i].Move(Character.Movement.Down);
+                            engineMap.TileMap[engineMap.Enemies[i].X, engineMap.Enemies[i].Y] = engineMap.Enemies[i];
+                            engineMap.TileMap[engineMap.Enemies[i].X, engineMap.Enemies[i].Y - 1] = new EmptyTile(engineMap.Enemies[i].X, engineMap.Enemies[i].Y - 1);
+                            engineMap.UpdateVision();
+
+                        }
+                        else if (Player.X < engineMap.Enemies[i].X && engineMap.Enemies[i].Vision[2].thisTile == Tile.TileType.Empty)
+                        {
+                            engineMap.Enemies[i].Move(Character.Movement.Left);
+                            engineMap.TileMap[engineMap.Enemies[i].X, engineMap.Enemies[i].Y] = engineMap.Enemies[i];
+                            engineMap.TileMap[engineMap.Enemies[i].X + 1, engineMap.Enemies[i].Y] = new EmptyTile(engineMap.Enemies[i].X + 1, engineMap.Enemies[i].Y);
+                            engineMap.UpdateVision();
+
+                        }
+                        else if (Player.X > engineMap.Enemies[i].X && engineMap.Enemies[i].Vision[3].thisTile == Tile.TileType.Empty)
+                        {
+                            engineMap.Enemies[i].Move(Character.Movement.Right);
+                            engineMap.TileMap[engineMap.Enemies[i].X, engineMap.Enemies[i].Y] = engineMap.Enemies[i];
+                            engineMap.TileMap[engineMap.Enemies[i].X - 1, engineMap.Enemies[i].Y] = new EmptyTile(engineMap.Enemies[i].X - 1, engineMap.Enemies[i].Y);
+                            engineMap.UpdateVision();
+
+                        }
+                        else for (int a = 0; a > 20; a++)
+                        {
+                            int movenum = randomMove.Next(1, 5);
+                            if (movenum == 1)
+                            {
+                                if (engineMap.Enemies[i].Vision[0].thisTile == Tile.TileType.Empty)
+                                {
+                                    engineMap.Enemies[i].Move(Character.Movement.Up);
+                                    engineMap.TileMap[engineMap.Enemies[i].X, engineMap.Enemies[i].Y] = engineMap.Enemies[i];
+                                    engineMap.TileMap[engineMap.Enemies[i].X, engineMap.Enemies[i].Y + 1] = new EmptyTile(engineMap.Enemies[i].X, engineMap.Enemies[i].Y + 1);
+                                    engineMap.UpdateVision();
+                                    break;
+                                }
+                            }
+                            if (movenum == 2)
+                            {
+                                if (engineMap.Enemies[i].Vision[1].thisTile == Tile.TileType.Empty)
+                                {
+                                    engineMap.Enemies[i].Move(Character.Movement.Down);
+                                    engineMap.TileMap[engineMap.Enemies[i].X, engineMap.Enemies[i].Y] = engineMap.Enemies[i];
+                                    engineMap.TileMap[engineMap.Enemies[i].X, engineMap.Enemies[i].Y - 1] = new EmptyTile(engineMap.Enemies[i].X, engineMap.Enemies[i].Y - 1);
+                                    engineMap.UpdateVision();
+                                    break;
+                                }
+                            }
+                            if (movenum == 3)
+                            {
+                                if (engineMap.Enemies[i].Vision[2].thisTile == Tile.TileType.Empty)
+                                {
+                                    engineMap.Enemies[i].Move(Character.Movement.Left);
+                                    engineMap.TileMap[engineMap.Enemies[i].X, engineMap.Enemies[i].Y] = engineMap.Enemies[i];
+                                    engineMap.TileMap[engineMap.Enemies[i].X + 1, engineMap.Enemies[i].Y] = new EmptyTile(engineMap.Enemies[i].X + 1, engineMap.Enemies[i].Y);
+                                    engineMap.UpdateVision();
+                                    break;
+                                }
+                            }
+                            if (movenum == 4)
+                            {
+                                if (engineMap.Enemies[i].Vision[3].thisTile == Tile.TileType.Empty)
+                                {
+                                    engineMap.Enemies[i].Move(Character.Movement.Right);
+                                    engineMap.TileMap[engineMap.Enemies[i].X, engineMap.Enemies[i].Y] = engineMap.Enemies[i];
+                                    engineMap.TileMap[engineMap.Enemies[i].X - 1, engineMap.Enemies[i].Y] = new EmptyTile(engineMap.Enemies[i].X - 1, engineMap.Enemies[i].Y);
+                                    engineMap.UpdateVision();
+                                    break;
+                                }
+                            }
+                        }
+                    }
                     if (engineMap.Enemies[i].thisTile == Tile.TileType.Goblin)
                     {
                         int movenum = randomMove.Next(1, 5);
@@ -299,7 +391,7 @@ namespace HeroesandGoblins
                                     engineMap.TileMap[engineMap.Enemies[i].X, engineMap.Enemies[i].Y] = engineMap.Enemies[i];
                                     engineMap.TileMap[engineMap.Enemies[i].X, engineMap.Enemies[i].Y + 1] = new EmptyTile(engineMap.Enemies[i].X, engineMap.Enemies[i].Y + 1);
                                     engineMap.UpdateVision();
-                                    i++;
+                                    
                                 }
                                 break;
                             case 2:
@@ -309,7 +401,7 @@ namespace HeroesandGoblins
                                     engineMap.TileMap[engineMap.Enemies[i].X, engineMap.Enemies[i].Y] = engineMap.Enemies[i];
                                     engineMap.TileMap[engineMap.Enemies[i].X, engineMap.Enemies[i].Y - 1] = new EmptyTile(engineMap.Enemies[i].X, engineMap.Enemies[i].Y - 1);
                                     engineMap.UpdateVision();
-                                    i++;
+                                 
                                 }
                                 break;
                             case 3:
@@ -319,7 +411,7 @@ namespace HeroesandGoblins
                                     engineMap.TileMap[engineMap.Enemies[i].X, engineMap.Enemies[i].Y] = engineMap.Enemies[i];
                                     engineMap.TileMap[engineMap.Enemies[i].X + 1, engineMap.Enemies[i].Y] = new EmptyTile(engineMap.Enemies[i].X + 1, engineMap.Enemies[i].Y);
                                     engineMap.UpdateVision();
-                                    i++;
+                                   
                                 }
                                 break;
                             case 4:
@@ -329,15 +421,11 @@ namespace HeroesandGoblins
                                     engineMap.TileMap[engineMap.Enemies[i].X, engineMap.Enemies[i].Y] = engineMap.Enemies[i];
                                     engineMap.TileMap[engineMap.Enemies[i].X - 1, engineMap.Enemies[i].Y] = new EmptyTile(engineMap.Enemies[i].X - 1, engineMap.Enemies[i].Y);
                                     engineMap.UpdateVision();
-                                    i++;
+                                  
                                 }
                                 break;
                         }
-                    }
-                    else
-                    {
-                        i++;
-                    }
+                    } 
                 }
             }
 
@@ -523,6 +611,12 @@ namespace HeroesandGoblins
                 labelMap.Text += "\n";
             }
             lblStats.Text = gameEngine.Player.ToString();
+            lblEnemies.Text = "";
+            for (int b = 0; b < gameEngine.EngineMap.Enemies.Length; b++)
+            {
+                lblEnemies.Text += gameEngine.EngineMap.Enemies[b].ToString();
+                lblEnemies.Text += "\n";
+            }
         }
 
         public Form1()

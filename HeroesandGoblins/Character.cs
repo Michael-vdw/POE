@@ -37,7 +37,7 @@ namespace HeroesandGoblins
 
         public virtual void Attack(Character target)
         {
-            target.hp -= Damage;
+            target.hp -= EquippedWeapon.Damage;
         }
 
         public bool IsDead()
