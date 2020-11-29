@@ -23,7 +23,8 @@ namespace HeroesandGoblins
             Gold,
             Weapon,
             Empty,
-            Obstacle
+            Obstacle,
+            Leader
         }
 
         public Tile(int x, int y)

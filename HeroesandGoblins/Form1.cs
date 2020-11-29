@@ -21,6 +21,8 @@ namespace HeroesandGoblins
         private static readonly char cGold = '$';
         private static readonly char cEmpty = '.';
         private static readonly char cObstacle = 'X';
+        private static readonly char cWeapon = '!';
+        private static readonly char cLeader = 'L';
         GameEngine gameEngine = new GameEngine();
 
         [Serializable]
@@ -44,7 +46,7 @@ namespace HeroesandGoblins
             public Tile[,] TileMap { get => tileMap; set => tileMap = value; }
             public Item[] Items { get => items; set => items = value; }
 
-            public Map(int minwidth, int maxwidth, int minheight, int maxheight, int enemynum, int gold)
+            public Map(int minwidth, int maxwidth, int minheight, int maxheight, int enemynum, int gold, int weapons)
             {
                 Height = randomnum.Next(minheight, maxheight);
                 Width = randomnum.Next(minwidth, maxwidth);
@@ -73,14 +75,18 @@ namespace HeroesandGoblins
                 i = 0;
                 while(i < enemynum)
                 {
-                    int randomEnemy = randomnum.Next(1, 3);
+                    int randomEnemy = randomnum.Next(1, 4);
                     if (randomEnemy == 1)
                     {
                         Create(Tile.TileType.Goblin);
                     }
-                    else
+                    else if (randomEnemy == 2)
                     {
                         Create(Tile.TileType.Mage);
+                    }
+                    else if (randomEnemy == 2)
+                    {
+                        Create(Tile.TileType.Leader);
                     }
                     i++;
                 }
@@ -89,6 +95,13 @@ namespace HeroesandGoblins
                 while (i < gold)
                 {
                     Create(Tile.TileType.Gold);
+                    i++;
+                }
+
+                i = 0;
+                while (i < weapons)
+                {
+                    Create(Tile.TileType.Weapon);
                     i++;
                 }
 
@@ -167,6 +180,38 @@ namespace HeroesandGoblins
                     tileMap[enemies[i].X, enemies[i].Y] = enemies[i];
                     return enemies[i];
                 }
+                if (type == Tile.TileType.Leader)
+                {
+                    enemies[i] = new Leader(x, y);
+                    tileMap[enemies[i].X, enemies[i].Y] = enemies[i];
+                    return enemies[i];
+                }
+                if (type == Tile.TileType.Weapon)
+                {
+                    Weapon newWeapon;
+                    int ranWep = randomnum.Next(1, 5);
+                    switch(ranWep)
+                    {
+                        case 1:
+                            newWeapon = new RangedWeapon(RangedWeapon.Types.Rifle,x, y);
+                            items[i] = newWeapon;
+                            break;
+                        case 2:
+                            newWeapon = new RangedWeapon(RangedWeapon.Types.Longbow, x, y);
+                            items[i] = newWeapon;
+                            break;
+                        case 3:
+                            newWeapon = new MeleeWeapon(MeleeWeapon.Types.Dagger, x, y);
+                            items[i] = newWeapon;
+                            break;
+                        case 4:
+                            newWeapon = new MeleeWeapon(MeleeWeapon.Types.Longsword, x, y);
+                            items[i] = newWeapon;
+                            break;
+                    } 
+                    tileMap[items[i].X, items[i].Y] = items[i];
+                    return items[i];
+                }
                 return new EmptyTile(x, y);
             }
         }
@@ -183,7 +228,7 @@ namespace HeroesandGoblins
 
             public GameEngine() 
             {
-                engineMap = new Map(10,15,10,15,5, 5);
+                engineMap = new Map(10,15,10,15,5, 5, 5);
                 player = engineMap.Player;
             }
 
@@ -465,6 +510,14 @@ namespace HeroesandGoblins
                     if (gameEngine.EngineMap.TileMap[x, y].ThisTile == Tile.TileType.Gold)
                     {
                         labelMap.Text += cGold;
+                    }
+                    if (gameEngine.EngineMap.TileMap[x, y].ThisTile == Tile.TileType.Weapon)
+                    {
+                        labelMap.Text += cWeapon;
+                    }
+                    if (gameEngine.EngineMap.TileMap[x, y].ThisTile == Tile.TileType.Leader)
+                    {
+                        labelMap.Text += cLeader;
                     }
                 }
                 labelMap.Text += "\n";
