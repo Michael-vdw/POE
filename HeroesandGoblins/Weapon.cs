@@ -19,7 +19,7 @@ namespace HeroesandGoblins
 
         public Weapon(char symbol, int x = 0, int y = 0) : base(x,y)
         {
-
+            ThisTile = TileType.Weapon;
         }
     }
 
@@ -29,6 +29,7 @@ namespace HeroesandGoblins
 
         public enum Types
         {
+            BareHanded,
             Dagger,
             Longsword
         }
@@ -49,6 +50,12 @@ namespace HeroesandGoblins
                 Durability = 6;
                 Damage = 4;
                 Cost = 5;
+            }
+            if (type == Types.BareHanded)
+            {
+                WeaponType = "BareHanded";
+                Range = 1;
+                Damage = 2;
             }
         }
 

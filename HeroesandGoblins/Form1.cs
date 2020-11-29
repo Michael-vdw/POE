@@ -84,7 +84,7 @@ namespace HeroesandGoblins
                     {
                         Create(Tile.TileType.Mage);
                     }
-                    else if (randomEnemy == 2)
+                    else if (randomEnemy == 3)
                     {
                         Create(Tile.TileType.Leader);
                     }

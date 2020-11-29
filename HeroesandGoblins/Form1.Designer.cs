@@ -43,7 +43,7 @@
             // 
             // btnUp
             // 
-            this.btnUp.Location = new System.Drawing.Point(662, 84);
+            this.btnUp.Location = new System.Drawing.Point(662, 39);
             this.btnUp.Name = "btnUp";
             this.btnUp.Size = new System.Drawing.Size(75, 23);
             this.btnUp.TabIndex = 0;
@@ -53,7 +53,7 @@
             // 
             // btnleft
             // 
-            this.btnleft.Location = new System.Drawing.Point(618, 113);
+            this.btnleft.Location = new System.Drawing.Point(618, 68);
             this.btnleft.Name = "btnleft";
             this.btnleft.Size = new System.Drawing.Size(75, 23);
             this.btnleft.TabIndex = 1;
@@ -63,7 +63,7 @@
             // 
             // btnRight
             // 
-            this.btnRight.Location = new System.Drawing.Point(710, 113);
+            this.btnRight.Location = new System.Drawing.Point(710, 68);
             this.btnRight.Name = "btnRight";
             this.btnRight.Size = new System.Drawing.Size(75, 23);
             this.btnRight.TabIndex = 2;
@@ -73,7 +73,7 @@
             // 
             // btnDown
             // 
-            this.btnDown.Location = new System.Drawing.Point(662, 142);
+            this.btnDown.Location = new System.Drawing.Point(662, 97);
             this.btnDown.Name = "btnDown";
             this.btnDown.Size = new System.Drawing.Size(75, 23);
             this.btnDown.TabIndex = 3;
@@ -84,7 +84,7 @@
             // lblStats
             // 
             this.lblStats.AutoSize = true;
-            this.lblStats.Location = new System.Drawing.Point(599, 9);
+            this.lblStats.Location = new System.Drawing.Point(443, 9);
             this.lblStats.Name = "lblStats";
             this.lblStats.Size = new System.Drawing.Size(35, 13);
             this.lblStats.TabIndex = 4;
@@ -104,14 +104,14 @@
             // cbxEnemies
             // 
             this.cbxEnemies.FormattingEnabled = true;
-            this.cbxEnemies.Location = new System.Drawing.Point(602, 215);
+            this.cbxEnemies.Location = new System.Drawing.Point(12, 417);
             this.cbxEnemies.Name = "cbxEnemies";
-            this.cbxEnemies.Size = new System.Drawing.Size(186, 21);
+            this.cbxEnemies.Size = new System.Drawing.Size(422, 21);
             this.cbxEnemies.TabIndex = 6;
             // 
             // btnAttack
             // 
-            this.btnAttack.Location = new System.Drawing.Point(662, 186);
+            this.btnAttack.Location = new System.Drawing.Point(440, 417);
             this.btnAttack.Name = "btnAttack";
             this.btnAttack.Size = new System.Drawing.Size(75, 23);
             this.btnAttack.TabIndex = 7;
@@ -121,15 +121,15 @@
             // 
             // rtbAttack
             // 
-            this.rtbAttack.Location = new System.Drawing.Point(602, 242);
+            this.rtbAttack.Location = new System.Drawing.Point(602, 193);
             this.rtbAttack.Name = "rtbAttack";
-            this.rtbAttack.Size = new System.Drawing.Size(186, 196);
+            this.rtbAttack.Size = new System.Drawing.Size(186, 247);
             this.rtbAttack.TabIndex = 8;
             this.rtbAttack.Text = "";
             // 
             // btnLoad
             // 
-            this.btnLoad.Location = new System.Drawing.Point(521, 415);
+            this.btnLoad.Location = new System.Drawing.Point(521, 417);
             this.btnLoad.Name = "btnLoad";
             this.btnLoad.Size = new System.Drawing.Size(75, 23);
             this.btnLoad.TabIndex = 9;
@@ -139,7 +139,7 @@
             // 
             // Save
             // 
-            this.Save.Location = new System.Drawing.Point(521, 386);
+            this.Save.Location = new System.Drawing.Point(521, 388);
             this.Save.Name = "Save";
             this.Save.Size = new System.Drawing.Size(75, 23);
             this.Save.TabIndex = 10;

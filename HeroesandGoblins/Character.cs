@@ -19,6 +19,7 @@ namespace HeroesandGoblins
         public int Damage { get => damage; set => damage = value; }
         public int Gold { get => gold; set => gold = value; }
         public char Symbol { get => symbol; set => symbol = value; }
+        public Weapon EquippedWeapon { get => equippedWeapon; set => equippedWeapon = value; }
         public Tile[] Vision { get => vision; set => vision = value; }
         public enum Movement
         {
@@ -31,7 +32,7 @@ namespace HeroesandGoblins
 
         public Character(int x, int y, char symbol) : base(x, y)
         {
-
+            
         }
 
         public virtual void Attack(Character target)
@@ -95,11 +96,20 @@ namespace HeroesandGoblins
             {
                 Gold += goldRandom.Next(1, 6);
             }
+            else
+            {
+               Equip((Weapon)i);
+            }
         }
 
         public abstract Movement ReturnMove(Movement move);
 
         public abstract override string ToString();
+
+        private void Equip(Weapon w)
+        {
+            EquippedWeapon = w;
+        }
     }
 
     [Serializable]
@@ -111,6 +121,7 @@ namespace HeroesandGoblins
             this.maxHP = hp;
             this.damage = 2;
             thisTile = TileType.Hero;
+            EquippedWeapon = new MeleeWeapon(MeleeWeapon.Types.BareHanded);
         }
 
         public override Movement ReturnMove(Movement move)
@@ -127,7 +138,7 @@ namespace HeroesandGoblins
 
         public override string ToString()
         {
-            return "Player stats: \nHP:" + hp + "/" + maxHP + "\nDamage:" + damage + "\nCoordinates:" + "[" + x + "," + y + "]" + "\nGold:" + gold;
+            return "Player stats: \nHP:" + hp + "/" + maxHP + "\nDamage:" + damage + "\nCoordinates:" + "[" + x + "," + y + "]" + "\nGold:" + gold + "\nCurrent Weapon:" + EquippedWeapon + "\nWeapon Range:" + EquippedWeapon.Range + "\nWeapon Damage:" + EquippedWeapon.Damage + "\nWeapon Durability:" + EquippedWeapon.Durability;
         }
     }
 }

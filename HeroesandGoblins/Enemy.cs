@@ -18,7 +18,7 @@ namespace HeroesandGoblins
         }
         public override string ToString()
         {
-            return nameof(Enemy) + " at [" + X + "," + Y + "] Damage:" + damage;
+            return EquippedWeapon.WeaponType + ":" + nameof(Enemy) + damage + "(" + HP + "/" + MaxHP + ")" + " at [" + X + "," + Y + "] " + "with" + EquippedWeapon.WeaponType + "(Durability:" +EquippedWeapon.Durability+",DMG"+ EquippedWeapon.Damage + ")";
         }
     }
     [Serializable]
@@ -27,6 +27,8 @@ namespace HeroesandGoblins
         public Mage(int x, int y) : base(x, y, 5, 5, 5, 'M')
         {
             thisTile = TileType.Mage;
+            EquippedWeapon = new MeleeWeapon(MeleeWeapon.Types.BareHanded);
+            EquippedWeapon.Damage = 5;
         }
 
         public override Movement ReturnMove(Movement move)
@@ -52,6 +54,7 @@ namespace HeroesandGoblins
         public Goblin(int x, int y) : base(x, y, 1, 10, 10, 'G')
         {
             thisTile = TileType.Goblin;
+            EquippedWeapon = new MeleeWeapon(MeleeWeapon.Types.Dagger);
         }
 
         public override Movement ReturnMove(Movement move)
@@ -74,7 +77,8 @@ namespace HeroesandGoblins
 
         public Leader(int x, int y) : base(x, y, 2, 20, 20, 'L')
         {
-
+            thisTile = TileType.Leader;
+            EquippedWeapon = new MeleeWeapon(MeleeWeapon.Types.Longsword);
         }
 
         public override Movement ReturnMove(Movement move)

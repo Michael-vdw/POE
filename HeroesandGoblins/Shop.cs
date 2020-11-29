@@ -11,7 +11,6 @@ namespace HeroesandGoblins
         private Weapon[] Weapons = new Weapon[3];
         Random ShopRandom = new Random();
         Character Weaponbuyer;
-        Weapon TempWeapon;
 
         public Shop(Character buyer)
         {
@@ -27,19 +26,15 @@ namespace HeroesandGoblins
             switch(weaponnum)
             {
                 case 1:
-                    TempWeapon.WeaponType = "Dagger";
-                    return TempWeapon;
+                    return new MeleeWeapon(MeleeWeapon.Types.Dagger);
                 case 2:
-                    TempWeapon.WeaponType = "Longsword";
-                    return TempWeapon;
+                    return new MeleeWeapon(MeleeWeapon.Types.Longsword); 
                 case 3:
-                    TempWeapon.WeaponType = "Rifle";
-                    return TempWeapon;
+                    return new RangedWeapon(RangedWeapon.Types.Longbow);
                 case 4:
-                    TempWeapon.WeaponType = "Longbow";
-                    return TempWeapon;
+                    return new RangedWeapon(RangedWeapon.Types.Rifle);
             }
-            return TempWeapon;
+            return new MeleeWeapon(MeleeWeapon.Types.BareHanded);
         }
 
         public bool CanBuy(int num)
