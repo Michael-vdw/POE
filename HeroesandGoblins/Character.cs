@@ -100,4 +100,33 @@ namespace HeroesandGoblins
 
         public abstract override string ToString();
     }
+
+    [Serializable]
+    class Hero : Character
+    {
+        public Hero(int x, int y, int hp) : base(x, y, 'H')
+        {
+            this.hp = hp;
+            this.maxHP = hp;
+            this.damage = 2;
+            thisTile = TileType.Hero;
+        }
+
+        public override Movement ReturnMove(Movement move)
+        {
+            if (vision[Convert.ToInt32(move)].thisTile != TileType.Empty)
+            {
+                return Movement.NoMove;
+            }
+            else
+            {
+                return move;
+            }
+        }
+
+        public override string ToString()
+        {
+            return "Player stats: \nHP:" + hp + "/" + maxHP + "\nDamage:" + damage + "\nCoordinates:" + "[" + x + "," + y + "]" + "\nGold:" + gold;
+        }
+    }
 }

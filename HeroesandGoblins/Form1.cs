@@ -22,79 +22,7 @@ namespace HeroesandGoblins
         private static readonly char cEmpty = '.';
         private static readonly char cObstacle = 'X';
         GameEngine gameEngine = new GameEngine();
-        [Serializable]
-        private class Goblin : Enemy
-        {
-            public Goblin(int x, int y) : base(x, y, 1, 10, 10, 'G')
-            {
-                thisTile = TileType.Goblin;
-            }
 
-            public override Movement ReturnMove(Movement move)
-            {
-                Random random = new Random();
-                int randomroll = random.Next(1, 5);
-
-                while (vision[randomroll].thisTile != TileType.Empty)
-                {
-                    randomroll = random.Next(1, 5);
-                }
-                return (Movement)randomroll;
-            }
-        }
-        [Serializable]
-        class Mage : Enemy
-        {
-            public Mage(int x, int y) : base(x, y, 5, 5, 5, 'M')
-            {
-                thisTile = TileType.Mage;
-            }
-
-            public override Movement ReturnMove(Movement move)
-            {
-                return Movement.NoMove;
-            }
-
-            public override bool CheckRange(Character target)
-            {
-                for (int i = 0; i > 8; i++)
-                {
-                    if (vision[i].ThisTile == TileType.Hero || vision[i].ThisTile == TileType.Empty)
-                    {
-                        return true;
-                    }
-                }
-                return false;
-            }
-        }
-        [Serializable]
-        private class Hero : Character
-        {
-            public Hero(int x, int y, int hp) : base(x, y, 'H')
-            {
-                this.hp = hp;
-                this.maxHP = hp;
-                this.damage = 2;
-                thisTile = TileType.Hero;
-            }
-
-            public override Movement ReturnMove(Movement move)
-            {
-                if (vision[Convert.ToInt32(move)].thisTile != TileType.Empty)
-                {
-                    return Movement.NoMove;
-                }
-                else
-                {
-                    return move;
-                }
-            }
-
-            public override string ToString()
-            {
-                return "Player stats: \nHP:" + hp + "/" + maxHP + "\nDamage:" + damage + "\nCoordinates:" + "[" + x + "," + y + "]" + "\nGold:" + gold; 
-            }
-        }
         [Serializable]
         class Map
         {
