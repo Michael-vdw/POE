@@ -18,4 +18,12 @@ namespace HeroesandGoblins
             return nameof(Item);
         }
     }
+    [Serializable]
+    class Gold : Item
+    {
+        public Gold(int x, int y) : base(x, y)
+        {
+            thisTile = Tile.TileType.Gold;
+        }
+    }
 }
