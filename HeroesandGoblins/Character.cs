@@ -9,6 +9,7 @@ namespace HeroesandGoblins
     [Serializable]
     abstract class Character : Tile
     {
+        private protected string lootString = "";
         private protected int hp, maxHP, damage, gold;
         private protected char symbol;
         private protected Weapon equippedWeapon;
@@ -21,6 +22,7 @@ namespace HeroesandGoblins
         public char Symbol { get => symbol; set => symbol = value; }
         public Weapon EquippedWeapon { get => equippedWeapon; set => equippedWeapon = value; }
         public Tile[] Vision { get => vision; set => vision = value; }
+        public string LootString { get => lootString; set => lootString = value; }
         public enum Movement
         {
             NoMove,
@@ -40,6 +42,16 @@ namespace HeroesandGoblins
             target.hp -= EquippedWeapon.Damage;
         }
 
+        public void Loot(Character target)
+        {
+            Gold += target.gold;
+            if (EquippedWeapon.WeaponType == "BareHanded" && target.EquippedWeapon.WeaponType != "BareHanded" && ThisTile != TileType.Mage)
+            {
+                EquippedWeapon = target.EquippedWeapon;
+                LootString = "Just Looted " + EquippedWeapon.WeaponType;
+            }
+        }
+
         public bool IsDead()
         {
             if (hp < 1)
@@ -54,7 +66,7 @@ namespace HeroesandGoblins
 
         public virtual bool CheckRange(Character target)
         {
-            if (DistanceTo(target) < EquippedWeapon.Range)
+            if (DistanceTo(target) <= EquippedWeapon.Range)
             {
                 return true;
             }
@@ -66,7 +78,7 @@ namespace HeroesandGoblins
 
         private int DistanceTo(Character target)
         {
-            return Math.Abs(target.X - this.X) + Math.Abs(target.Y - this.Y);
+            return Math.Abs(target.X - X) + Math.Abs(target.Y - Y);
         }
 
         public void Move(Movement move)
@@ -92,13 +104,13 @@ namespace HeroesandGoblins
         public void Pickup(Item i)
         {
             Random goldRandom = new Random();
+            if (i.thisTile == Tile.TileType.Weapon)
+            {
+                Equip((Weapon)i);
+            }
             if (i.thisTile == Tile.TileType.Gold)
             {
-                Gold += goldRandom.Next(1, 6);
-            }
-            else
-            {
-               Equip((Weapon)i);
+                Gold += goldRandom.Next(1,6);
             }
         }
 
@@ -138,7 +150,7 @@ namespace HeroesandGoblins
 
         public override string ToString()
         {
-            return "Player stats: \nHP:" + hp + "/" + maxHP + "\nDamage:" + damage + "\nCoordinates:" + "[" + x + "," + y + "]" + "\nGold:" + gold + "\nCurrent Weapon:" + EquippedWeapon.WeaponType + "\nWeapon Range:" + EquippedWeapon.Range + "\nWeapon Damage:" + EquippedWeapon.Damage + "\nWeapon Durability:" + EquippedWeapon.Durability;
+            return "Player stats: \nHP:" + HP + "/" + MaxHP + "\nDamage:" + Damage + "\nCoordinates:" + "[" + x + "," + y + "]" + "\nGold:" + Gold + "\n" + LootString + "Current Weapon:" + EquippedWeapon.WeaponType + "\nWeapon Range:" + EquippedWeapon.Range + "\nWeapon Damage:" + EquippedWeapon.Damage + "\nWeapon Durability:" + EquippedWeapon.Durability;
         }
     }
 }

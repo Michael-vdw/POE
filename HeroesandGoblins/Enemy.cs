@@ -18,7 +18,7 @@ namespace HeroesandGoblins
         }
         public override string ToString()
         {
-            return EquippedWeapon.WeaponType + ":" + nameof(Enemy) + "(" + HP + "/" + MaxHP + ")" + " at [" + X + "," + Y + "] " + "with" + EquippedWeapon.WeaponType + "(Durability:" +EquippedWeapon.Durability+",DMG"+ EquippedWeapon.Damage + ")";
+            return LootString + nameof(Enemy) + "(" + HP + "/" + MaxHP + ")" + " at [" + X + "," + Y + "] " + "with" + EquippedWeapon.WeaponType + "(Durability:" +EquippedWeapon.Durability+",DMG"+ EquippedWeapon.Damage + ")";
         }
     }
     [Serializable]
@@ -29,6 +29,7 @@ namespace HeroesandGoblins
             thisTile = TileType.Mage;
             EquippedWeapon = new MeleeWeapon(MeleeWeapon.Types.BareHanded);
             EquippedWeapon.Damage = 5;
+            Gold = 3;
         }
 
         public override Movement ReturnMove(Movement move)
@@ -55,6 +56,7 @@ namespace HeroesandGoblins
         {
             thisTile = TileType.Goblin;
             EquippedWeapon = new MeleeWeapon(MeleeWeapon.Types.Dagger);
+            Gold = 1;
         }
 
         public override Movement ReturnMove(Movement move)
@@ -69,7 +71,7 @@ namespace HeroesandGoblins
             return (Movement)randomroll;
         }
     }
-
+    [Serializable]
     class Leader : Enemy
     {
         private Tile leaderTarget;
@@ -79,6 +81,7 @@ namespace HeroesandGoblins
         {
             thisTile = TileType.Leader;
             EquippedWeapon = new MeleeWeapon(MeleeWeapon.Types.Longsword);
+            Gold = 2;
         }
 
         public override Movement ReturnMove(Movement move)

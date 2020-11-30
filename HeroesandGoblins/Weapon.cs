@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace HeroesandGoblins
 {
+    [Serializable]
     abstract class Weapon : Item
     {
         private protected int damage, range, durability, cost;
@@ -22,7 +23,7 @@ namespace HeroesandGoblins
             ThisTile = TileType.Weapon;
         }
     }
-
+    [Serializable]
     class MeleeWeapon : Weapon
     {
         private static char defaultSymbol = '!';
@@ -62,7 +63,7 @@ namespace HeroesandGoblins
         }
 
     }
-
+    [Serializable]
     class RangedWeapon : Weapon
     {
         public Types thisWeapon;
@@ -74,7 +75,6 @@ namespace HeroesandGoblins
             Rifle,
             Longbow
         }
-        public override int Range { get => range; set => range = 1; }
 
         public RangedWeapon(Types type, int x = 0, int y = 0) : base(defaultSymbol, x, y)
         {

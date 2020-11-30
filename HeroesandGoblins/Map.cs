@@ -32,7 +32,7 @@ namespace HeroesandGoblins
             Height = randomnum.Next(minheight, maxheight);
             Width = randomnum.Next(minwidth, maxwidth);
 
-            items = new Item[gold];
+            items = new Item[gold + weapons];
             tileMap = new Tile[width, height];
             enemies = new Enemy[enemynum];
 
@@ -73,18 +73,14 @@ namespace HeroesandGoblins
             }
 
             i = 0;
-            while (i < gold)
+            while (i < Items.Length)
             {
                 Create(Tile.TileType.Gold);
                 i++;
-            }
-
-            i = 0;
-            while (i < weapons)
-            {
                 Create(Tile.TileType.Weapon);
                 i++;
             }
+
 
             UpdateVision();
         }

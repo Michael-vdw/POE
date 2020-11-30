@@ -287,7 +287,7 @@ namespace HeroesandGoblins
                 }
                 if (player.Vision[3].thisTile == Tile.TileType.Gold)
                 {
-                    for (int i = 0; i < engineMap.Items.Length; i++)
+                    for(int i = 0; i < engineMap.Items.Length; i++)
                     {
                         if (engineMap.Items[i].X - 1 == player.X && EngineMap.Items[i].Y == player.Y)
                         {
@@ -335,7 +335,7 @@ namespace HeroesandGoblins
                 {
                     for (int i = 0; i < engineMap.Items.Length; i++)
                     {
-                        if (engineMap.Items[i].X + 1 == player.X && EngineMap.Items[i].Y == player.Y)
+                        if (engineMap.Items[i].X == player.X && EngineMap.Items[i].Y + 1 == player.Y)
                         {
                             player.Pickup(engineMap.Items[i]);
                         }

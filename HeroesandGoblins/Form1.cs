@@ -13,6 +13,7 @@ using System.Windows.Forms;
 
 namespace HeroesandGoblins
 {
+    [Serializable]
     public partial class Form1 : Form
     {
         private static readonly char cHero = 'H';
@@ -24,7 +25,8 @@ namespace HeroesandGoblins
         private static readonly char cWeapon = '!';
         private static readonly char cLeader = 'L';
         GameEngine gameEngine = new GameEngine();
-        public void mapDraw()
+        Shop shop;
+        public void mapDraw() //double for loop, also refreshes shop and label
         {
             labelMap.Text = "";
 
@@ -66,6 +68,12 @@ namespace HeroesandGoblins
                     }
                 }
                 labelMap.Text += "\n";
+                RefreshShop(shop);
+                cbxEnemies.Items.Clear();
+                for (int i = 0; i < gameEngine.EngineMap.Enemies.Length; i++)
+                {
+                    cbxEnemies.Items.Add(gameEngine.EngineMap.Enemies[i]);
+                }
             }
             lblStats.Text = gameEngine.Player.ToString();
             lblEnemies.Text = "";
@@ -80,11 +88,45 @@ namespace HeroesandGoblins
         {
             InitializeComponent();
             rtbAttack.Text = "";
+            shop = new Shop(gameEngine.Player);
             mapDraw();
-            for (int i = 0; i < gameEngine.EngineMap.Enemies.Length; i++)
+        }
+
+        private  void RefreshShop(Shop tempshop) //disables/enables buttons and adds button text
+        {
+            
+            if (shop.CanBuy(0) == true)
             {
-                cbxEnemies.Items.Add(gameEngine.EngineMap.Enemies[i]);
-            }  
+                btnShop1.Text = tempshop.DisplayWeapon(0);
+                btnShop1.Enabled = true;
+            }
+            else
+            {
+                btnShop1.Text = tempshop.DisplayWeapon(0);
+                btnShop1.Enabled = false;
+            }
+
+            if (shop.CanBuy(1) == true)
+            {
+                btnShop2.Text = tempshop.DisplayWeapon(1);
+                btnShop1.Enabled = true;
+            }
+            else
+            {
+                btnShop2.Text = tempshop.DisplayWeapon(1);
+                btnShop2.Enabled = false;
+            }
+
+            if (shop.CanBuy(2) == true)
+            {
+                btnShop3.Text = tempshop.DisplayWeapon(2);
+                btnShop3.Enabled = true;
+            }
+            else
+            {
+                btnShop3.Text = tempshop.DisplayWeapon(2);
+                btnShop3.Enabled = false;
+            }
         }
 
         private void btnUp_Click_1(object sender, EventArgs e)
@@ -92,6 +134,14 @@ namespace HeroesandGoblins
             gameEngine.MovePlayer(Character.Movement.Up);
             gameEngine.MoveEnemies();
             gameEngine.EnemyAttacks();
+            for (int i = 0; i < gameEngine.EngineMap.Enemies.Length; i++)//checking for dead enemies on every movement
+            {
+                if (gameEngine.EngineMap.Enemies[i].HP < 1)
+                {
+                    gameEngine.EngineMap.TileMap[gameEngine.EngineMap.Enemies[i].X, gameEngine.EngineMap.Enemies[i].Y] = new EmptyTile(gameEngine.EngineMap.Enemies[i].X, gameEngine.EngineMap.Enemies[i].Y);
+                    cbxEnemies.Items.Remove(cbxEnemies.SelectedItem);
+                }
+            }
             mapDraw();
         }
 
@@ -100,6 +150,14 @@ namespace HeroesandGoblins
             gameEngine.MovePlayer(Character.Movement.Right);
             gameEngine.MoveEnemies();
             gameEngine.EnemyAttacks();
+            for (int i = 0; i < gameEngine.EngineMap.Enemies.Length; i++)
+            {
+                if (gameEngine.EngineMap.Enemies[i].HP < 1)
+                {
+                    gameEngine.EngineMap.TileMap[gameEngine.EngineMap.Enemies[i].X, gameEngine.EngineMap.Enemies[i].Y] = new EmptyTile(gameEngine.EngineMap.Enemies[i].X, gameEngine.EngineMap.Enemies[i].Y);
+                    cbxEnemies.Items.Remove(cbxEnemies.SelectedItem);
+                }
+            }
             mapDraw();
         }
 
@@ -108,6 +166,14 @@ namespace HeroesandGoblins
             gameEngine.MovePlayer(Character.Movement.Down);
             gameEngine.MoveEnemies();
             gameEngine.EnemyAttacks();
+            for (int i = 0; i < gameEngine.EngineMap.Enemies.Length; i++)
+            {
+                if (gameEngine.EngineMap.Enemies[i].HP < 1)
+                {
+                    gameEngine.EngineMap.TileMap[gameEngine.EngineMap.Enemies[i].X, gameEngine.EngineMap.Enemies[i].Y] = new EmptyTile(gameEngine.EngineMap.Enemies[i].X, gameEngine.EngineMap.Enemies[i].Y);
+                    cbxEnemies.Items.Remove(cbxEnemies.SelectedItem);
+                }
+            }
             mapDraw();
         }
 
@@ -116,12 +182,24 @@ namespace HeroesandGoblins
             gameEngine.MovePlayer(Character.Movement.Left);
             gameEngine.MoveEnemies();
             gameEngine.EnemyAttacks();
+            for (int i = 0; i < gameEngine.EngineMap.Enemies.Length; i++)
+            {
+                if (gameEngine.EngineMap.Enemies[i].HP < 1)
+                {
+                    gameEngine.EngineMap.TileMap[gameEngine.EngineMap.Enemies[i].X, gameEngine.EngineMap.Enemies[i].Y] = new EmptyTile(gameEngine.EngineMap.Enemies[i].X, gameEngine.EngineMap.Enemies[i].Y);
+                    cbxEnemies.Items.Remove(cbxEnemies.SelectedItem);
+                }
+            }
             mapDraw();
         }
 
         private void btnAttack_Click(object sender, EventArgs e)
         {
-            if (gameEngine.Player.CheckRange((Character)cbxEnemies.SelectedItem) == true)
+            if (cbxEnemies.SelectedItem == null)
+            {
+                MessageBox.Show("Please select a target");
+            }
+            else if (gameEngine.Player.CheckRange((Character)cbxEnemies.SelectedItem) == true)
             {
                 gameEngine.Player.Attack((Character)cbxEnemies.SelectedItem);
                 rtbAttack.Text += "Attacked successfully\n";
@@ -135,6 +213,7 @@ namespace HeroesandGoblins
             {
                 if (gameEngine.EngineMap.Enemies[i].HP < 1)
                 {
+                    gameEngine.Player.Loot(gameEngine.EngineMap.Enemies[i]);
                     gameEngine.EngineMap.TileMap[gameEngine.EngineMap.Enemies[i].X, gameEngine.EngineMap.Enemies[i].Y] = new EmptyTile(gameEngine.EngineMap.Enemies[i].X, gameEngine.EngineMap.Enemies[i].Y);
                     cbxEnemies.Items.Remove(cbxEnemies.SelectedItem);
                 }
@@ -150,6 +229,24 @@ namespace HeroesandGoblins
         private void btnLoad_Click(object sender, EventArgs e)
         {
             gameEngine.Load();
+            mapDraw();
+        }
+
+        private void btnShop1_Click(object sender, EventArgs e)
+        {
+            shop.Buy(0);
+            mapDraw();
+        }
+
+        private void btnShop2_Click(object sender, EventArgs e)
+        {
+            shop.Buy(1);
+            mapDraw();
+        }
+
+        private void btnShop3_Click(object sender, EventArgs e)
+        {
+            shop.Buy(2);
             mapDraw();
         }
     }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace HeroesandGoblins
 {
+    [Serializable]
     class Shop
     {
         private Weapon[] Weapons = new Weapon[3];
@@ -15,7 +16,7 @@ namespace HeroesandGoblins
         public Shop(Character buyer)
         {
             Weaponbuyer = buyer;
-            for (int i = 0; i > 3; i++)
+            for (int i = 0; i < 3; i++)
             {
                 Weapons[i] = RandomWeapon();
             }
@@ -23,18 +24,23 @@ namespace HeroesandGoblins
         private Weapon RandomWeapon()
         {
             int weaponnum = ShopRandom.Next(1, 5);
-            switch(weaponnum)
+
+            if (weaponnum == 1)
             {
-                case 1:
-                    return new MeleeWeapon(MeleeWeapon.Types.Dagger);
-                case 2:
-                    return new MeleeWeapon(MeleeWeapon.Types.Longsword); 
-                case 3:
-                    return new RangedWeapon(RangedWeapon.Types.Longbow);
-                case 4:
-                    return new RangedWeapon(RangedWeapon.Types.Rifle);
+                return new MeleeWeapon(MeleeWeapon.Types.Dagger);
             }
-            return new MeleeWeapon(MeleeWeapon.Types.BareHanded);
+            if (weaponnum == 2)
+            {
+                return new MeleeWeapon(MeleeWeapon.Types.Longsword);
+            }
+            if (weaponnum == 3)
+            {
+                return new RangedWeapon(RangedWeapon.Types.Longbow);
+            }
+            else
+            {
+                return new RangedWeapon(RangedWeapon.Types.Rifle);
+            }
         }
 
         public bool CanBuy(int num)
@@ -51,14 +57,14 @@ namespace HeroesandGoblins
 
         public void Buy(int num)
         {
-            Weaponbuyer.Gold = Weaponbuyer.Gold - Weapons[num].Cost;
+            Weaponbuyer.Gold -= Weapons[num].Cost;
             Weaponbuyer.Pickup(Weapons[num]);
             Weapons[num] = RandomWeapon();
         }
 
         public string DisplayWeapon(int num)
         {
-            return "Buy " + Weapons[num].WeaponType + " " + Convert.ToString(Weapons[num].Cost);
+            return "Buy " + Weapons[num].WeaponType + " " + Convert.ToString(Weapons[num].Cost) + "Gold";
         }
     }
 }

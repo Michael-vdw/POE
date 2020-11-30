@@ -1,0 +1,9 @@
+D:\OneDrive\OneDrive - Vega School\Vega\Game Development\Project\POE\GitRepo\POE\HeroesandGoblins\bin\Release\HeroesandGoblins.exe.config
+D:\OneDrive\OneDrive - Vega School\Vega\Game Development\Project\POE\GitRepo\POE\HeroesandGoblins\bin\Release\HeroesandGoblins.exe
+D:\OneDrive\OneDrive - Vega School\Vega\Game Development\Project\POE\GitRepo\POE\HeroesandGoblins\bin\Release\HeroesandGoblins.pdb
+D:\OneDrive\OneDrive - Vega School\Vega\Game Development\Project\POE\GitRepo\POE\HeroesandGoblins\obj\Release\HeroesandGoblins.csprojAssemblyReference.cache
+D:\OneDrive\OneDrive - Vega School\Vega\Game Development\Project\POE\GitRepo\POE\HeroesandGoblins\obj\Release\HeroesandGoblins.Form1.resources
+D:\OneDrive\OneDrive - Vega School\Vega\Game Development\Project\POE\GitRepo\POE\HeroesandGoblins\obj\Release\HeroesandGoblins.Properties.Resources.resources
+D:\OneDrive\OneDrive - Vega School\Vega\Game Development\Project\POE\GitRepo\POE\HeroesandGoblins\obj\Release\HeroesandGoblins.csproj.GenerateResource.cache
+D:\OneDrive\OneDrive - Vega School\Vega\Game Development\Project\POE\GitRepo\POE\HeroesandGoblins\obj\Release\HeroesandGoblins.exe
+D:\OneDrive\OneDrive - Vega School\Vega\Game Development\Project\POE\GitRepo\POE\HeroesandGoblins\obj\Release\HeroesandGoblins.pdb
